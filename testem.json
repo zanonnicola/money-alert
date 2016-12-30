@@ -1,0 +1,20 @@
+{
+  "framework": "mocha+chai",
+  "src_files": [
+    "test/**/*.js"
+  ],
+  "launchers": {
+    "Node": {
+      "command": "mocha --compilers js:babel-register --require babel-polyfill -R tap",
+      "protocol": "tap"
+    },
+    "Chrome": {
+      "command": "mocha --compilers js:babel-register --require babel-polyfill -R tap",
+      "protocol": "tap"
+    }
+  },
+  "launch_in_dev": [
+    "Node",
+    "Chrome"
+  ]
+}
