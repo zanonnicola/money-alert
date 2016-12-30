@@ -4,7 +4,7 @@
 import './css/global.css';
 import log from './modules/log';
 
-function  bootstrap() {
+function bootstrap() {
   const a = 'Hello 9';
   document.getElementsByTagName('h1')[0].innerHTML = a;
 
@@ -12,6 +12,8 @@ function  bootstrap() {
     log();
   }, 500);
 }
+
+/* eslint-disable */
 
 // this is only relevant when using `hot` mode with webpack
 // special thanks to Eric Clemmons: https://github.com/ericclemmons/webpack-hot-server-example

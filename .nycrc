@@ -1,0 +1,16 @@
+{
+  "description": "Code Coverage settings",
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "cache": true,
+    "all": true,
+    "check-coverage": true,
+    "lines": 50,
+    "statements": 50,
+    "functions": 50,
+    "branches": 50
+  }
+}

@@ -1,6 +1,5 @@
 import chai, { expect } from 'chai';
 const assert = chai.assert;
-import log from '../src/modules/log';
 
 function hello() {
   return "hello";
@@ -8,7 +7,7 @@ function hello() {
 
 describe('Random Test', () => {
   describe('#indexOf()', () => {
-    it('should return -1 when the value is not present', function() {
+    it('should return -1 when the value is not present', () => {
       assert.equal([1,2,3].indexOf(4), -1);
     });
   });

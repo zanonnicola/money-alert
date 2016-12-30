@@ -1,6 +1,5 @@
 const resolve = require('path').resolve;
-var webpack = require('webpack');
-var nodeExternals = require('webpack-node-externals');
+const nodeExternals = require('webpack-node-externals');
 
 // "before_tests": "browserify -t [ babelify ] test/**/*.js -o tests-bundle.js"
 

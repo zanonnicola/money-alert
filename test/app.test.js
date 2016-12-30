@@ -1,11 +1,17 @@
 import chai, { expect } from 'chai';
-const assert = chai.assert;
-import log from '../src/modules/log';
+import { log, toTest } from '../src/modules/log';
 
-describe('App.js', function() {
-  describe('#log()', function() {
-    it('should be defined', function() {
+const assert = chai.assert;
+
+describe('App.js', () => {
+  describe('#log()', () => {
+    it('should be defined', () => {
       assert.isDefined(log, 'Log has been defined');
+    });
+  });
+  describe('#toTest()', () => {
+    it('shouldreturn test', () => {
+      expect(toTest()).to.be.equal('test');
     });
   });
 });
