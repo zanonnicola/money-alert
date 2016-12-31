@@ -1,5 +1,9 @@
 {
     "extends": "airbnb",
+    "rules": {
+        "no-console": 0,
+        "no-debugger": 'warn'
+    },
     "env": {
         "browser": true,
         "node": true,
@@ -7,5 +11,5 @@
     },
     "globals": {
         "$": true
-    }
+    },
 }

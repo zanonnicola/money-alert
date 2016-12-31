@@ -4,15 +4,26 @@
 import './css/global.css';
 import { log } from './modules/log';
 
+const elOutput = document.querySelector('#output');
+const el = document.querySelector('#load');
+const a = 'Hello 9';
+
+function loadJSON(evt) {
+  evt.preventDefault();
+  System.import('./modules/extra').then((module) => {
+    const extra = module.default;
+    elOutput.innerHTML = extra().title;
+  });
+}
+
 function bootstrap() {
-  const a = 'Hello 9';
   document.getElementsByTagName('h1')[0].innerHTML = a;
+  el.addEventListener('click', loadJSON);
 
   setTimeout(() => {
     log();
   }, 500);
 }
-
 /* eslint-disable */
 
 // this is only relevant when using `hot` mode with webpack
