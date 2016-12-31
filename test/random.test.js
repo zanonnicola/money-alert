@@ -1,14 +1,15 @@
 import chai, { expect } from 'chai';
+
 const assert = chai.assert;
 
 function hello() {
-  return "hello";
+  return 'hello';
 }
 
 describe('Random Test', () => {
   describe('#indexOf()', () => {
     it('should return -1 when the value is not present', () => {
-      assert.equal([1,2,3].indexOf(4), -1);
+      assert.equal([1, 2, 3].indexOf(4), -1);
     });
   });
   describe('Promise', () => {
@@ -21,8 +22,8 @@ describe('Random Test', () => {
     });
   });
 });
-describe('hello', function(){
-  it('should say hello', function(){
+describe('hello', () => {
+  it('should say hello', () => {
     expect(hello()).to.be.equal('hello');
   });
 });

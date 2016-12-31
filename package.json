@@ -8,6 +8,7 @@
     "codecov": "nyc --reporter=lcov --reporter=text-lcov npm run test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint src/app.js",
+    "lint:test": "eslint test/*.js",
     "clean": "rimraf dist/*",
     "dev": "webpack-dev-server --env.dev --hot",
     "prebuild": "npm run clean",
