@@ -2,7 +2,7 @@
 /* eslint-env browser */
 
 import './css/global.css';
-import log from './modules/log';
+import { log } from './modules/log';
 
 function bootstrap() {
   const a = 'Hello 9';

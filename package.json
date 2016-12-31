@@ -57,16 +57,16 @@
     "postcss-loader": "^1.2.1",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
-    "testem": "^1.14.2",
+    "testem": "^1.14.2"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.20.0",
+    "chai": "^3.5.0",
     "webpack": "2.1.0-beta.28",
     "webpack-config-utils": "^2.3.0",
     "webpack-dev-server": "^2.1.0-beta.0",
     "webpack-node-externals": "^1.5.4",
     "webpack-validator": "2.3.0"
-  },
-  "dependencies": {
-    "babel-runtime": "^6.20.0",
-    "chai": "^3.5.0"
   },
   "nyc": {
     "sourceMap": false,

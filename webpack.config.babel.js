@@ -1,19 +1,19 @@
-const {resolve} = require('path');
+const { resolve } = require('path');
 const webpackValidator = require('webpack-validator');
-const {getIfUtils} = require('webpack-config-utils')
+const { getIfUtils } = require('webpack-config-utils');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = (env) => {
-  const {ifProd, ifNotProd} = getIfUtils(env);
-  const config = webpackValidator ({
+  const { ifProd, ifNotProd, ifProduction } = getIfUtils(env);
+  const config = webpackValidator({
     context: resolve('src'),
     entry: './app.js',
     output: {
       path: resolve('dist'),
       filename: 'bundle.js',
       publicPath: '/dist/',
-      pathinfo: ifNotProd()
+      pathinfo: ifNotProd(),
     },
     devtool: ifProd('source-map', 'eval'),
     module: {
@@ -23,31 +23,34 @@ module.exports = (env) => {
           loader: 'babel-loader',
           exclude: /node_modules/,
           query: {
-            plugins: ['transform-runtime']
-          }
+            babelrc: ifProd(false, true),
+            presets: [
+              ['es2015', { modules: false }],
+            ],
+            plugins: ['transform-runtime'],
+          },
         },
         {
           test: /\.css$/,
           include: resolve('src/css'),
-          loader: 'style-loader!css-loader!postcss-loader'
-        }
-      ]
+          loader: 'style-loader!css-loader!postcss-loader',
+        },
+      ],
     },
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
-          BROWSER: JSON.stringify(true)
-        }
-      })
+          BROWSER: JSON.stringify(true),
+        },
+      }),
     ],
-    externals: [nodeExternals()],
+    externals: ifProduction([nodeExternals()]),
     node: {
-      fs: 'empty'
-    }
+      fs: 'empty',
+    },
   });
   if (env.debug) {
-    console.log(config)
-    debugger // eslint-disable-line
+    console.log(config);
   }
   return config;
-}
+};
