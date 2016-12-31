@@ -17,7 +17,7 @@ module.exports = (env) => {
     },
     devtool: ifProd('source-map', 'eval'),
     performance: {
-      hints: ifProd('warning', false),
+      hints: ifProd(true, false),
     },
     module: {
       loaders: [
