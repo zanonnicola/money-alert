@@ -7,7 +7,7 @@
     "test": "env NODE_ENV=test testem ci -l Node Chrome",
     "codecov": "nyc --reporter=lcov --reporter=text-lcov npm run test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "lint": "eslint app/app.js",
+    "lint": "eslint src/app.js",
     "clean": "rimraf dist/*",
     "dev": "webpack-dev-server --env.dev --hot",
     "prebuild": "npm run clean",
