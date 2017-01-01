@@ -1,8 +1,10 @@
 /* eslint no-undef: "error" */
 /* eslint-env browser */
 
+import { install as offlineInstall } from 'offline-plugin/runtime';
 import './css/global.css';
 import { log } from './modules/log';
+import data from './vendor/lib';
 
 const elOutput = document.querySelector('#output');
 const el = document.querySelector('#load');
@@ -22,7 +24,11 @@ function bootstrap() {
 
   setTimeout(() => {
     log();
+    console.log(data);
   }, 500);
+  if (process.env.NODE_ENV === 'production') {
+    offlineInstall();
+  }
 }
 /* eslint-disable */
 

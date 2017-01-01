@@ -13,10 +13,12 @@
     "dev": "webpack-dev-server --env.dev --hot",
     "prebuild": "npm run clean",
     "build": "webpack -p --env.prod",
+    "postbuild": "cp favicon.ico ./dist",
     "validate": "npm-run-all --parallel lint build codecov",
     "debug": "node-nightly --inspect --debug-brk node_modules/.bin/webpack --env.debug",
     "debug:dev": "npm run debug -- --env.dev",
-    "debug:prod": "npm run debug -- --env.prod"
+    "debug:prod": "npm run debug -- --env.prod",
+    "deploy": "./scripts/deploy"
   },
   "repository": {
     "type": "git",
@@ -58,11 +60,17 @@
     "postcss-loader": "^1.2.1",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
+    "surge": "^0.18.0",
     "testem": "^1.14.2"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "chai": "^3.5.0",
+    "extract-text-webpack-plugin": "^2.0.0-beta.3",
+    "html-webpack-plugin": "^2.25.0",
+    "inline-manifest-webpack-plugin": "^3.0.1",
+    "progress-bar-webpack-plugin": "^1.9.1",
+    "offline-plugin": "^4.5.3",
     "webpack": "2.1.0-beta.28",
     "webpack-config-utils": "^2.3.0",
     "webpack-dev-server": "^2.1.0-beta.0",
