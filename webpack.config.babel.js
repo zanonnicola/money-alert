@@ -37,7 +37,7 @@ module.exports = (env) => {
             presets: [
               ['es2015', { modules: false }],
             ],
-            plugins: ['transform-runtime'],
+            plugins: ['transform-runtime', 'transform-object-rest-spread'],
           },
         },
         {
