@@ -2,7 +2,7 @@
 
 module.exports = (config) => {
   config.set({
-    browsers: ['Chrome'], // run in Chrome
+    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'], // run in Chrome
     singleRun: true, // just run once by default
     frameworks: ['mocha', 'chai'], // use the mocha test framework
     files: [
@@ -11,7 +11,7 @@ module.exports = (config) => {
     preprocessors: {
       'tests.webpack.js': ['webpack', 'sourcemap'], // preprocess with webpack and our sourcemap loader
     },
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage', 'coveralls'],
     webpack: { // kind of a copy of your webpack config
       devtool: 'inline-source-map', // just do inline source maps instead of the default
       module: {
