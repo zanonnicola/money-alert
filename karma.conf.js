@@ -2,7 +2,7 @@
 
 module.exports = (config) => {
   config.set({
-    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'], // run in Chrome
+    browsers: ['Chrome'], // run in Chrome
     singleRun: true, // just run once by default
     frameworks: ['mocha', 'chai'], // use the mocha test framework
     files: [
