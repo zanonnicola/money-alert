@@ -1,30 +1,24 @@
 import chai, { expect } from 'chai';
-import { log, toTest } from '../src/modules/log';
-import extra from '../src/modules/extra';
+// import sinon, { stub } from 'sinon';
+import convertCurrency from '../src/modules/convertCurrency';
 
-const assert = chai.assert;
+// const assert = chai.assert;
 
 describe('App.js', () => {
-  describe('#log()', () => {
-    it('should be defined', () => {
-      assert.isDefined(log, 'Log has been defined');
+  describe('#convertCurrency()', () => {
+    it('should exist', () => {
+      chai.should().exist(convertCurrency);
     });
-  });
-  describe('#toTest()', () => {
-    it('shouldreturn test', () => {
-      expect(toTest()).to.be.equal('test');
-    });
-  });
-  describe('#extra()', () => {
-    it('should return a string', () => {
-      const title = extra().title;
-      expect(title).to.be.a('string');
-    });
-    it('should be "sunt aut" in title', () => {
-      const word = extra().title.indexOf('sunt aut');
-      expect(word).to.satisfy(
-        num => num === 0,
-      );
+    it('should return an integer', () => {
+      const mockData = {
+        base: 'EUR',
+        date: '2016-12-30',
+        rates: {
+          AUD: 1.4596,
+          BGN: 1.9558,
+        },
+      };
+      expect(convertCurrency(mockData, 'AUD', 'BGN')).to.be.a('number');
     });
   });
 });

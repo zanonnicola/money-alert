@@ -6,10 +6,11 @@ const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   context: resolve('test'),
-  entry: ['babel-polyfill', './test.js'],
+  entry: ['babel-polyfill', './app.test.js'],
   output: {
-    path: __dirname,
-    filename: 'test-bundle.js'
+    path: resolve('test'),
+    filename: '[name].bundle.js',
+    pathinfo: true,
   },
   module: {
     loaders: [
@@ -18,14 +19,14 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          plugins: ['transform-runtime']
-        }
-      }
-    ]
+          plugins: ['transform-runtime'],
+        },
+      },
+    ],
   },
   target: 'node',
   externals: [nodeExternals()],
   node: {
-    fs: 'empty'
-  }
+    fs: 'empty',
+  },
 };

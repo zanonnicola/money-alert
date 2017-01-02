@@ -2,15 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Test</title>
+  <title>Money Alert - Get notifed!</title>
   <%=htmlWebpackPlugin.files.webpackManifest%>
-  <!-- <link rel="stylesheet" href="./css/global.css"> -->
+
+  <meta name="description" content="Create an alert when is the right time to transfer money based on live exchange rates" />
+	<link rel="manifest" href="manifest.json">
+	<meta id="theme-color" name="theme-color" content="#ECF0F1">
+	<meta name="apple-mobile-web-app-capable" content="yes"><!-- iOS meta tag defines whether the web application should run in full-screen mode -->
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- Google Authorship and Publisher Markup -->
+  <link rel="author" href="https://plus.google.com/+NicolaZanon"/>
+
+  <!-- Schema.org markup for Google+ -->
+  <meta itemprop="name" content="Money Alert - Get notifed!">
+  <meta itemprop="description" content="Create an alert when is the right time to transfer money based on live exchange rates">
+  <meta itemprop="image" content="https://money-transfer-zanonnicola.surge.sh/img/money-alert.jpg">
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="https://money-transfer-zanonnicola.surge.sh/img/money-alert.jpg">
+  <meta name="twitter:site" content="@ZanonNicola">
+  <meta name="twitter:title" content="Money Alert - Get notifed!">
+  <meta name="twitter:description" content="Create an alert when is the right time to transfer money based on live exchange rates">
+  <meta name="twitter:creator" content="@ZanonNicola">
+  <!-- Twitter summary card with large image must be at least 280x150px -->
+  <meta name="twitter:image:src" content="https://money-transfer-zanonnicola.surge.sh/img/money-alert.jpg">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="Money Alert - Get notifed!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nicola-zanon.com" />
+  <meta property="og:image" content="https://money-transfer-zanonnicola.surge.sh/img/money-alert.jpg" />
+  <meta property="og:description" content="Create an alert when is the right time to transfer money based on live exchange rates" />
+  <meta property="og:site_name" content="Nicola Zanon" />
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Money Alert">
+	<link rel="apple-touch-icon" href="./img/icon.png">
+	<meta name="msapplication-TileImage" content="./img/icon.png">
+	<meta name="msapplication-TileColor" content="#ECF0F1">
+
+	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
 </head>
 <body>
-  <h1>Test Ciao</h1>
-  <a href="#0" id="load">Load me</a>
-  <div id="output"></div>
+  <div class="wrapper">
+    <div id="excahgeRate">0.00</div>
+    <select id="leftCurrency">
+      <option value="EUR" selected="selected">EUR</option>
+      <option value="AUD" selected="selected">AUD</option>
+      <option value="BGN" selected="selected">BGN</option>
+    </select>
+    <select id="rightCurrency">
+      <option value="GBP" selected="selected">GBP</option>
+      <option value="AUD" selected="selected">AUD</option>
+      <option value="BGN" selected="selected">BGN</option>
+    </select>
+  </div>
 </body>
 </html>

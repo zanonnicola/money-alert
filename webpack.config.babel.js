@@ -45,14 +45,14 @@ module.exports = (env) => {
           include: resolve('src/css'),
           loader: ExtractTextPlugin.extract({
             fallbackLoader: 'style-loader',
-            loader: 'css-loader',
+            loader: ifProd('css-loader', 'css-loader?sourceMap'),
           }),
         },
       ],
     },
     plugins: removeEmpty([
       new ProgressBarPlugin(),
-      new OfflinePlugin(),
+      ifProd(new OfflinePlugin()),
       new webpack.DefinePlugin({
         'process.env': {
           BROWSER: JSON.stringify(true),

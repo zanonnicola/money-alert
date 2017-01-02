@@ -1,15 +1,19 @@
 {
   "framework": "mocha+chai",
   "src_files": [
-    "test/**/*.js"
+    "test/*.test.js"
   ],
+  "serve_files": [
+    "test/*.bundle.js"
+  ],
+  "before_tests": "webpack --config webpack.testem.config.js",
   "launchers": {
     "Node": {
-      "command": "mocha --compilers js:babel-register --require babel-polyfill -R tap",
+      "command": "mocha --require babel-core/register -R tap",
       "protocol": "tap"
     },
     "Chrome": {
-      "command": "mocha --compilers js:babel-register --require babel-polyfill -R tap",
+      "command": "mocha --require babel-core/register -R tap",
       "protocol": "tap"
     }
   },
