@@ -2,7 +2,7 @@
 
 module.exports = (config) => {
   config.set({
-    browsers: ['Chrome'], // run in Chrome
+    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'], // run in Chrome
     singleRun: true, // just run once by default
     frameworks: ['mocha', 'chai'], // use the mocha test framework
     files: [
@@ -34,6 +34,12 @@ module.exports = (config) => {
         { type: 'json', dir: 'coverage/', subdir: '.' },
         { type: 'text-summary' },
       ],
+    },
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox'],
+      },
     },
     webpackMiddleware: { noInfo: true },
     colors: true,
