@@ -6,7 +6,6 @@
   "scripts": {
     "test": "env NODE_ENV=test karma start",
     "watch:test": "npm test -- --auto-watch --no-single-run",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint src/app.js",
     "lint:test": "eslint test/*.js",
     "clean": "rimraf dist/*",
@@ -14,7 +13,7 @@
     "prebuild": "npm run clean",
     "build": "webpack -p --env.prod",
     "postbuild": "cp favicon.ico ./dist && cp ./src/manifest.json ./dist",
-    "validate": "npm-run-all --parallel lint build codecov",
+    "validate": "npm-run-all --parallel lint build test",
     "debug": "node-nightly --inspect --debug-brk node_modules/.bin/webpack --env.debug",
     "debug:dev": "npm run debug -- --env.dev",
     "debug:prod": "npm run debug -- --env.prod",
@@ -65,7 +64,6 @@
     "karma-webpack": "^1.8.1",
     "mocha": "^3.2.0",
     "npm-run-all": "^3.1.2",
-    "nyc": "^10.0.0",
     "postcss-loader": "^1.2.1",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
@@ -87,9 +85,5 @@
     "webpack-dev-server": "^2.1.0-beta.0",
     "webpack-node-externals": "^1.5.4",
     "webpack-validator": "2.3.0"
-  },
-  "nyc": {
-    "sourceMap": false,
-    "instrument": false
   }
 }
