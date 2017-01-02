@@ -15,7 +15,7 @@ before_script:
 script:
   - npm run validate
 after_success:
-  - npm run coverage
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 deploy:
   provider: surge
   project: ./dist/
