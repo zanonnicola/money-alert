@@ -2,7 +2,11 @@
 /* eslint-env browser */
 
 import { install as offlineInstall } from 'offline-plugin/runtime';
+import { createStore } from 'redux';
 import convertCurrency from './modules/convertCurrency';
+import { attachEventListener } from './modules/helpers';
+import { selectLeftCurrency, selectRightCurrency, selectExchangeRate } from './modules/actions';
+import updateCurrency from './modules/reducers';
 import './css/normalize.css';
 import './css/global.css';
 
@@ -21,11 +25,17 @@ import './css/global.css';
 
 */
 
-function getData() {
+const store = createStore(updateCurrency);
+store.subscribe(() =>
+  console.log(store.getState()),
+);
+
+function getlatestExchangeRate(LeftCurrency, rightCurrency) {
   fetch('http://api.fixer.io/latest').then((response) => {
     if (response.ok) {
       response.json().then((data) => {
-        console.log(convertCurrency(data, 'GBP', 'EUR').toFixed(4));
+        const currentExchangeRate = convertCurrency(data, LeftCurrency, rightCurrency).toFixed(4);
+        store.dispatch(selectExchangeRate(currentExchangeRate));
       });
     } else {
       console.log('Network response was not ok.');
@@ -36,8 +46,31 @@ function getData() {
   });
 }
 
+const valueEl = document.getElementById('excahgeRate');
+function render() {
+  valueEl.innerHTML = store.getState().currentExchangeRate;
+}
+
 function bootstrap() {
-  getData();
+  getlatestExchangeRate(store.getState().leftCurrency, store.getState().rightCurrency);
+  render();
+
+  function getCurrency(evt) {
+    const el = evt.target;
+    const currency = el.options[el.selectedIndex].value;
+    switch (el.getAttribute('id')) {
+      case 'leftCurrency':
+        store.dispatch(selectLeftCurrency(currency));
+        break;
+      case 'rightCurrency':
+        store.dispatch(selectRightCurrency(currency));
+        break;
+      default:
+    }
+  }
+  attachEventListener('.select', 'change', getCurrency);
+  store.subscribe(render);
+
   if (process.env.NODE_ENV === 'production') {
     offlineInstall();
   }
