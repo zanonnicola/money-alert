@@ -1,3 +1,11 @@
-const context = require.context('./test', true, /-test\.js$/); // make sure you have your directory and regex test set correctly!
-
-context.keys().forEach(context);
+// require all modules ending in "_test" from the
+// current directory and all subdirectories
+const testsContext = require.context('./test', true, /-test\.js$/);
+testsContext.keys().forEach((path) => {
+  try {
+    testsContext(path);
+  } catch (err) {
+    console.error('[ERROR] WITH SPEC FILE: ', path);
+    console.error(err);
+  }
+});

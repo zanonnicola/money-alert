@@ -13,6 +13,10 @@ import './css/global.css';
 
 /*
 
+-- TO DOs:
+  - Check coverage (srcFiles)
+  - Fetch API cannot load http://api.fixer.io/latest. Failed to start loading.
+
 - Splash screen
   -- Chose currencies to keep track -->
   -- Save values to local storage or indexDB (Firebase in the feature) -->
@@ -31,7 +35,7 @@ store.subscribe(() =>
 );
 
 function getlatestExchangeRate(LeftCurrency, rightCurrency) {
-  fetch('http://api.fixer.io/latest').then((response) => {
+  fetch('https://api.fixer.io/latest', { mode: 'cors' }).then((response) => {
     if (response.ok) {
       response.json().then((data) => {
         const currentExchangeRate = convertCurrency(data, LeftCurrency, rightCurrency).toFixed(4);
