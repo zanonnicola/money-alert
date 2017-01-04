@@ -1,11 +1,16 @@
 const appState = {
   leftCurrency: 'EUR',
   rightCurrency: 'GBP',
-  currentExchangeRate: 0.0000,
+  currentExchangeRate: '0.0000',
   symbol: '€',
+  lastUpdated: 'never',
+  isFetching: false,
+  status: null,
+  error: null,
+  data: null,
 };
 
-export default function updateCurrency(state = appState, action) {
+function defineCurrency(state = appState, action) {
   switch (action.type) {
     case 'SELECT_LEFT_CURRENCY':
       return {
@@ -17,12 +22,28 @@ export default function updateCurrency(state = appState, action) {
         ...state,
         rightCurrency: action.rightCurrency,
       };
-    case 'UPDATE_EXCHANGE_RATE':
+    case 'SELECT_CURRENCY_SYMBOL':
       return {
         ...state,
+        symbol: action.currencySymbol,
+      };
+    case 'REQUEST_EXCHANGE_RATE':
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case 'RECEIVE_EXCHANGE_RATE':
+      return {
+        ...state,
+        isFetching: false,
         currentExchangeRate: action.currentExchangeRate,
+        status: action.status,
+        error: action.error,
+        data: action.data,
+        lastUpdated: action.receivedAt,
       };
     default:
       return state;
   }
 }
+export default defineCurrency;

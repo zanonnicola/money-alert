@@ -2,11 +2,11 @@
 /* eslint-env browser */
 
 import { install as offlineInstall } from 'offline-plugin/runtime';
-import { createStore } from 'redux';
-import convertCurrency from './modules/convertCurrency';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import { attachEventListener } from './modules/helpers';
-import { selectLeftCurrency, selectRightCurrency, selectExchangeRate } from './modules/actions';
-import updateCurrency from './modules/reducers';
+import { selectLeftCurrency, selectRightCurrency, selectCurrencySymbol, fetchAPI } from './modules/actions';
+import rootReducer from './modules/reducers';
 import './css/normalize.css';
 import './css/global.css';
 
@@ -14,8 +14,6 @@ import './css/global.css';
 /*
 
 -- TO DOs:
-  - Check coverage (srcFiles)
-  - Fetch API cannot load http://api.fixer.io/latest. Failed to start loading.
 
 - Splash screen
   -- Chose currencies to keep track -->
@@ -29,42 +27,41 @@ import './css/global.css';
 
 */
 
-const store = createStore(updateCurrency);
-store.subscribe(() =>
-  console.log(store.getState()),
-);
+let store;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+if (process.env.NODE_ENV === 'production') {
+  store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+} else {
+  store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+  store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
+}
 
-function getlatestExchangeRate(LeftCurrency, rightCurrency) {
-  fetch('https://api.fixer.io/latest', { mode: 'cors' }).then((response) => {
-    if (response.ok) {
-      response.json().then((data) => {
-        const currentExchangeRate = convertCurrency(data, LeftCurrency, rightCurrency).toFixed(4);
-        store.dispatch(selectExchangeRate(currentExchangeRate));
-      });
-    } else {
-      console.log('Network response was not ok.');
-    }
-  })
-  .catch((error) => {
-    console.log(`There has been a problem with your fetch operation: ${error.message}`);
+function updateData(evt) {
+  evt.preventDefault();
+  console.log('click');
+  store.dispatch(fetchAPI(store.getState().leftCurrency, store.getState().rightCurrency)).then(() => {
+    console.log(store.getState());
   });
 }
+const updateEl = document.getElementById('update-data');
+updateEl.addEventListener('click', updateData);
 
 const valueEl = document.getElementById('excahgeRate');
 function render() {
-  valueEl.innerHTML = store.getState().currentExchangeRate;
+  valueEl.innerHTML = `${store.getState().symbol} ${store.getState().currentExchangeRate}`;
 }
 
 function bootstrap() {
-  getlatestExchangeRate(store.getState().leftCurrency, store.getState().rightCurrency);
   render();
 
   function getCurrency(evt) {
     const el = evt.target;
     const currency = el.options[el.selectedIndex].value;
+    const currencySymbol = el.options[el.selectedIndex].dataset.symbol;
     switch (el.getAttribute('id')) {
       case 'leftCurrency':
         store.dispatch(selectLeftCurrency(currency));
+        store.dispatch(selectCurrencySymbol(currencySymbol));
         break;
       case 'rightCurrency':
         store.dispatch(selectRightCurrency(currency));

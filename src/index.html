@@ -49,17 +49,18 @@
 </head>
 <body>
   <div class="wrapper">
-    <div id="excahgeRate">0.00</div>
+    <div id="excahgeRate">0.0000</div>
     <select id="leftCurrency" class="select">
-      <option value="EUR" selected="selected">EUR</option>
-      <option value="AUD">AUD</option>
-      <option value="BGN">BGN</option>
+      <option data-symbol="&euro;" value="EUR" selected="selected">EUR</option>
+      <option data-symbol="&#65284;" value="AUD">AUD</option>
+      <option data-symbol="&yen;" value="JPY">JPY</option>
     </select>
     <select id="rightCurrency" class="select">
       <option value="GBP" selected="selected">GBP</option>
       <option value="AUD">AUD</option>
-      <option value="BGN">BGN</option>
+      <option value="JPY">JPY</option>
     </select>
+    <a href="#0" id="update-data">Update</a>
   </div>
 </body>
 </html>

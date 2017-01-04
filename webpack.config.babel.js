@@ -14,7 +14,7 @@ module.exports = (env) => {
   const config = webpackValidator({
     context: resolve('src'),
     entry: {
-      app: './app.js',
+      app: ['babel-polyfill', 'whatwg-fetch', './app.js'],
       vendor: ['./vendor/lib.js'],
     },
     output: {

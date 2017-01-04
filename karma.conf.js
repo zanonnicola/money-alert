@@ -41,7 +41,10 @@ module.exports = (config) => {
         flags: ['--no-sandbox'],
       },
     },
-    webpackMiddleware: { noInfo: true },
+    webpackMiddleware: {
+      noInfo: true,
+      stats: 'errors-only',
+    },
     colors: true,
     concurrency: Infinity,
     logLevel: config.LOG_DEBUG,

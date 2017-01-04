@@ -84,11 +84,13 @@
     "offline-plugin": "^4.5.3",
     "progress-bar-webpack-plugin": "^1.9.1",
     "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0",
     "sinon": "^1.17.7",
     "webpack": "2.1.0-beta.28",
     "webpack-config-utils": "^2.3.0",
     "webpack-dev-server": "^2.1.0-beta.0",
     "webpack-node-externals": "^1.5.4",
-    "webpack-validator": "2.3.0"
+    "webpack-validator": "2.3.0",
+    "whatwg-fetch": "^2.0.1"
   }
 }
