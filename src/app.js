@@ -2,11 +2,9 @@
 /* eslint-env browser */
 
 import { install as offlineInstall } from 'offline-plugin/runtime';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunkMiddleware from 'redux-thunk';
 import { attachEventListener } from './modules/helpers';
-import { selectLeftCurrency, selectRightCurrency, selectCurrencySymbol, fetchAPI } from './modules/actions';
-import rootReducer from './modules/reducers';
+import { selectLeftCurrency, selectRightCurrency, selectCurrencySymbol, fetchAPI, addRateToState } from './modules/actions';
+import store from './modules/store';
 import './css/normalize.css';
 import './css/global.css';
 
@@ -27,15 +25,6 @@ import './css/global.css';
 
 */
 
-let store;
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-if (process.env.NODE_ENV === 'production') {
-  store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-} else {
-  store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-  store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
-}
-
 function updateData(evt) {
   evt.preventDefault();
   console.log('click');
@@ -50,6 +39,15 @@ const valueEl = document.getElementById('excahgeRate');
 function render() {
   valueEl.innerHTML = `${store.getState().symbol} ${store.getState().currentExchangeRate}`;
 }
+
+function trackCurrency(evt) {
+  evt.preventDefault();
+  const currentRate = store.getState().currentExchangeRate;
+  store.dispatch(addRateToState(currentRate));
+}
+
+const trackEl = document.getElementById('track');
+trackEl.addEventListener('click', trackCurrency);
 
 function bootstrap() {
   render();

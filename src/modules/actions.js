@@ -24,6 +24,23 @@ const receiveExchangeRate = (currentExchangeRate, status, error, data) => ({
   data,
   receivedAt: Date.now(),
 });
+const generalError = error => ({
+  type: 'GENERAL_ERROR',
+  error,
+});
+const trackRate = fareToTrack => ({
+  type: 'TRACK_RATE',
+  fareToTrack,
+});
+function addRateToState(fareToTrack) {
+  return (dispatch, getState) => {
+    if (getState().leftCurrency === getState().rightCurrency) {
+      dispatch(generalError('Error: you are tracking the same currency'));
+      return;
+    }
+    dispatch(trackRate(fareToTrack));
+  };
+}
 
 function fetchAPI(leftCurrency, rightCurrency) {
   return (dispatch) => {
@@ -47,4 +64,4 @@ function fetchAPI(leftCurrency, rightCurrency) {
   };
 }
 
-export { selectLeftCurrency, selectRightCurrency, selectCurrencySymbol, requestExchangeRate, receiveExchangeRate, fetchAPI };
+export { selectLeftCurrency, selectRightCurrency, selectCurrencySymbol, requestExchangeRate, receiveExchangeRate, fetchAPI, addRateToState, generalError };

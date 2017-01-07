@@ -8,6 +8,7 @@ const appState = {
   status: null,
   error: null,
   data: null,
+  historyData: [],
 };
 
 function defineCurrency(state = appState, action) {
@@ -41,6 +42,16 @@ function defineCurrency(state = appState, action) {
         error: action.error,
         data: action.data,
         lastUpdated: action.receivedAt,
+      };
+    case 'TRACK_RATE':
+      return {
+        ...state,
+        historyData: [...state.historyData, action.fareToTrack],
+      };
+    case 'GENERAL_ERROR':
+      return {
+        ...state,
+        error: action.error,
       };
     default:
       return state;
