@@ -12,7 +12,7 @@ const selectCurrencySymbol = currencySymbol => ({
   type: 'SELECT_CURRENCY_SYMBOL',
   currencySymbol,
 });
-const requestExchangeRate = isFetching => ({
+const loadingData = isFetching => ({
   type: 'REQUEST_EXCHANGE_RATE',
   isFetching,
 });
@@ -32,6 +32,17 @@ const trackRate = fareToTrack => ({
   type: 'TRACK_RATE',
   fareToTrack,
 });
+const getStateFromIndexDB = data => ({
+  type: 'GET_STATE_FROM_INDEXDB',
+  data,
+});
+
+function getDataFromIndexDB(obj) {
+  return (dispatch) => {
+    dispatch(getStateFromIndexDB(obj));
+  };
+}
+
 function addRateToState(fareToTrack) {
   return (dispatch, getState) => {
     if (getState().leftCurrency === getState().rightCurrency) {
@@ -44,7 +55,7 @@ function addRateToState(fareToTrack) {
 
 function fetchAPI(leftCurrency, rightCurrency) {
   return (dispatch) => {
-    dispatch(requestExchangeRate());
+    dispatch(loadingData());
 
     return fetch('https://api.fixer.io/latest', { mode: 'cors' }).then((response) => {
       if (response.ok) {
@@ -64,4 +75,4 @@ function fetchAPI(leftCurrency, rightCurrency) {
   };
 }
 
-export { selectLeftCurrency, selectRightCurrency, selectCurrencySymbol, requestExchangeRate, receiveExchangeRate, fetchAPI, addRateToState, generalError };
+export { selectLeftCurrency, selectRightCurrency, selectCurrencySymbol, loadingData, receiveExchangeRate, fetchAPI, addRateToState, generalError, getDataFromIndexDB };

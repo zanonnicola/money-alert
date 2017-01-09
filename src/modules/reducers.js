@@ -1,15 +1,4 @@
-const appState = {
-  leftCurrency: 'EUR',
-  rightCurrency: 'GBP',
-  currentExchangeRate: '0.0000',
-  symbol: '€',
-  lastUpdated: 'never',
-  isFetching: false,
-  status: null,
-  error: null,
-  data: null,
-  historyData: [],
-};
+import appState from './appstate';
 
 function defineCurrency(state = appState, action) {
   switch (action.type) {
@@ -52,6 +41,11 @@ function defineCurrency(state = appState, action) {
       return {
         ...state,
         error: action.error,
+      };
+    case 'GET_STATE_FROM_INDEXDB':
+      return {
+        ...state,
+        test: action.data.bla,
       };
     default:
       return state;
