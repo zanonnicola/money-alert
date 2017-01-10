@@ -13,7 +13,7 @@ const selectCurrencySymbol = currencySymbol => ({
   currencySymbol,
 });
 const loadingData = isFetching => ({
-  type: 'REQUEST_EXCHANGE_RATE',
+  type: 'LOADING_DATA',
   isFetching,
 });
 const receiveExchangeRate = (currentExchangeRate, status, error, data) => ({
@@ -32,16 +32,6 @@ const trackRate = fareToTrack => ({
   type: 'TRACK_RATE',
   fareToTrack,
 });
-const getStateFromIndexDB = data => ({
-  type: 'GET_STATE_FROM_INDEXDB',
-  data,
-});
-
-function getDataFromIndexDB(obj) {
-  return (dispatch) => {
-    dispatch(getStateFromIndexDB(obj));
-  };
-}
 
 function addRateToState(fareToTrack) {
   return (dispatch, getState) => {
@@ -75,4 +65,4 @@ function fetchAPI(leftCurrency, rightCurrency) {
   };
 }
 
-export { selectLeftCurrency, selectRightCurrency, selectCurrencySymbol, loadingData, receiveExchangeRate, fetchAPI, addRateToState, generalError, getDataFromIndexDB };
+export { selectLeftCurrency, selectRightCurrency, selectCurrencySymbol, loadingData, receiveExchangeRate, fetchAPI, addRateToState, generalError };

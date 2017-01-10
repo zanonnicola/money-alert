@@ -17,7 +17,7 @@ function defineCurrency(state = appState, action) {
         ...state,
         symbol: action.currencySymbol,
       };
-    case 'REQUEST_EXCHANGE_RATE':
+    case 'LOADING_DATA':
       return {
         ...state,
         isFetching: true,
@@ -41,11 +41,6 @@ function defineCurrency(state = appState, action) {
       return {
         ...state,
         error: action.error,
-      };
-    case 'GET_STATE_FROM_INDEXDB':
-      return {
-        ...state,
-        test: action.data.bla,
       };
     default:
       return state;
